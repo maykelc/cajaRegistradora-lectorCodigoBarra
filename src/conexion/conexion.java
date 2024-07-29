@@ -1,7 +1,9 @@
 package conexion;
-import java.sql.SQLException;
-import java.sql.DriverManager;
+
 import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
 /**
  *
  * @author MaykXZ
@@ -9,8 +11,8 @@ import java.sql.Connection;
 public class conexion {
     private Connection conect = null;
     private String usuario = "root";
-    private String contrasena = "null";
-    private String url = "jdbc:mysql://localhost:3306/nombredelabd" ;//Ruta
+    private String contrasena = "";
+    private String url = "jdbc:mysql://localhost:3306/ventasbd" ;//Ruta
     //Conexion
     public conexion(){
     try{

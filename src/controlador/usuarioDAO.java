@@ -20,12 +20,13 @@ public class usuarioDAO {
     //Agregar Usuario
     public boolean agregarUsuario(usuario user){
         try{
-            String sql = "insert into usuario(nombre, apellido, contrasena) values(?,?,?)";
+            String sql = "insert into usuario(nombre, apellido, nombre_user, contrasena ) values(?,?,?,?)";
             PreparedStatement stmt = conect.prepareStatement(sql);
         
             stmt.setString(1, user.getNombre());
             stmt.setString(2, user.getApellido());
-            stmt.setString(3, user.getContrasena());
+            stmt.setString(3, user.getNombreUser());
+            stmt.setString(4, user.getContrasena());
             if(stmt.executeUpdate()> 0){
                 return true;
             }else{
@@ -47,6 +48,7 @@ public class usuarioDAO {
                 usuario user = new usuario();
                 user.setNombre(rs.getString("nombre"));
                 user.setApellido(rs.getString("apellido"));
+                user.setNombreUser(rs.getString("nombreUser"));
                 user.setContrasena(rs.getString("contrasena"));
                 lista.add(user);
             }
@@ -57,11 +59,11 @@ public class usuarioDAO {
         }
     }
     //Eliminar Usuario
-    public boolean EliminarUser(String nombre){
+    public boolean EliminarUser(String nombreUser){
         try{
-            String sql = "delete from usuario where nombre = ?";
+            String sql = "delete from usuario where nombre_user = ?";
             PreparedStatement stmt = conect.prepareStatement(sql);
-            stmt.setString(1, nombre);
+            stmt.setString(1, nombreUser);
             if(stmt.executeUpdate()> 0){
             return true;
             }else{
@@ -73,13 +75,17 @@ public class usuarioDAO {
         }
     }
     //Modificar Usuario
-    public boolean modificarUser(String str, String str2){
+    public boolean modificarUser(usuario user){
+        String sql= "UPDATE usuario SET nombre = ?, apellido = ?, nombre_user = ?, contrasena = ? WHERE id_usuario = ?";
         try{
-            usuario user = new usuario();
-            String sql = "update usuario set nombre = ? where nombre = ?";
             PreparedStatement stmt = conect.prepareStatement(sql);
-            stmt.setString(1, str);
-            stmt.setString(2, str2);
+            
+            stmt.setString(1, user.getNombre());
+            stmt.setString(2, user.getApellido());
+            stmt.setString(3, user.getNombreUser());
+            stmt.setString(4,user.getContrasena());
+            stmt.setInt(5, user.getId_usuario());
+            
             if(stmt.executeUpdate()>0){
                 return true;
             }else{
@@ -91,17 +97,18 @@ public class usuarioDAO {
         }
     }
     //Buscar Usuario
-    public ArrayList<usuario> buscaruser(String str){
+    public ArrayList<usuario> buscaruser(String nombreUser){
         ArrayList<usuario> lista = new ArrayList<>();
         try{
-            String sql ="select * from usuario where usuario = ?";
+            String sql ="select * from usuario where nombre_user = ?";
             PreparedStatement stmt = conect.prepareStatement(sql);
-            stmt.setString(1, str);
+            stmt.setString(1, nombreUser);
             ResultSet rs = stmt.executeQuery(); 
             while(rs.next()){
                 usuario user = new usuario();
                 user.setNombre(rs.getString("nombre"));
                 user.setApellido(rs.getString("apellido"));
+                user.setNombreUser(rs.getString("nombre_user"));
                 user.setContrasena(rs.getString("contrasena"));
                 lista.add(user);
             }return lista;

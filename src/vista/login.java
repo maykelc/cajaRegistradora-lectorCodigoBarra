@@ -3,7 +3,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package vista;
-
+/**
+ * @author MaykXZ
+ */
 import java.awt.Dimension;
 
 public class login extends javax.swing.JFrame {

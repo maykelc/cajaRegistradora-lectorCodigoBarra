@@ -1,8 +1,7 @@
 package controlador;
-
 /**
  * @author MaykXZ
  */
-public class ventaDAO {
+public class det_ventaDAO {
     
 }
